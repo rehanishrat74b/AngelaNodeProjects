@@ -1,0 +1,25 @@
+step 1.
+/* for heroku port number:
+process.env.PORT
+*/
+
+app.listen(process.env.PORT || 3000, function () {
+  console.log("Server is running on port 3000");
+});
+
+step 2: create proc file
+
+step3: install heroku
+https://devcenter.heroku.com/articles/getting-started-with-nodejs#set-up
+
+step4: install git
+
+git add .
+git commit -m "First Commit"
+git push heroku master
+
+step5: deploy the app
+https://devcenter.heroku.com/articles/getting-started-with-nodejs#deploy-the-app
+
+step 6: make sure to look logs
+hyperTerminal$ heroku logs

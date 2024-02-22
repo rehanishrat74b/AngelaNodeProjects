@@ -1,0 +1,75 @@
+git config --global user.name "Dana Devops"
+git config --global user.email "rehanishrat74@gmail.com"
+
+ $ cd ~/.ssh
+ssh-keygen -t rsa -C "rehanishrat74@gmail.com" -f "github-rehanishrat74b"
+$ ssh-keygen -t rsa -C "rehanishrat74@gmail.com" -f "github-rehanishrat74b"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/github-rehanishrat74b
+
+
+in c/users/work/.ssh/config  add
+Host github.com-rehanishrat74b
+        HostName github.com
+        User git
+        IdentityFile C:/Users/WORK/.ssh/github-rehanishrat74b
+
+go to project folder
+git init
+git config --global --add safe.directory F:/Rehan/AngelaFiles
+
+git add .
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/rehanishrat74b/AngelaNodeProjects.git
+git push -u origin main
+--------------------------------------------
+git init
+ls -a  // display hidden directory .git
+
+git status
+
+//adding file to staging area
+git add chapter1.txt  or 
+git add .  // to undo, git rm --cached -r
+
+git commit -m "Initial Commit"
+
+git log  //to check recent commands typed
+
+git diff chapter3.txt  //view contents between commited and uncommited.
+
+git checkout chapter3.txt  // roll back
+
+---------------------------------------
+goto github.com
+create new repository
+
+goto local folder
+git remote add origin <repository url>
+
+git push -u origin master 
+// origin is simply a label
+//here name of remote = origin
+//name of branch = master
+----------------------------------------
+touch .gitignore
+// add following files to avoid uploading in .gitignore
+	.DS_Store
+	secrets.txt  or *.txt for all text files
+
+use # //for comments.
+https://github.com/github/gitignore
+----------------------------------------
+# to download from git repository.
+git clone <url>.git
+----------------------------------------
+#Branching
+git branch alien-plot
+
+git branch //will list the branches. there will be two. *master and alien-plot
+
+git checkout alien-plot
+# do the changes here. to merge go to master branch
+git checkout master
+git merge alien-plot

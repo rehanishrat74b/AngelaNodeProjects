@@ -1,0 +1,27 @@
+https://nodejs.org/en
+
+after installing,
+in hyper terminal , type node --version
+
+node index.js //having console.log("hello world");
+
+How to create a project:
+step1.
+In hyper terminal, 
+  create a folder and move inside it.
+  type npm init
+  this will give package.json
+
+step2: search packages from https://www.npmjs.com/ and search package e.g superheroes
+  In hyper terminal, type
+  npm install superheroes
+
+Step3: create index.js file.
+const superheroes = require('superheroes');
+var mysuperhero=superheroes.random();
+console.log(mysuperhero);
+
+step4:
+in hyper terminal, type
+node index.js
+
