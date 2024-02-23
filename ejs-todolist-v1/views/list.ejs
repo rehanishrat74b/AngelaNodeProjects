@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To do List</title>
+</head>
+
+<body>
+
+  <% if(kindOfDay=="Friday" ){ %>
+    <h1 style="color:purple">today is <%=kindOfDay %>
+    </h1>
+    <%} else {%>
+      <h1 style="color:blue">today is <%=kindOfDay %>
+      </h1>
+      <%}%>
+        <h2>
+          <%= keyFormatedDate %>
+        </h2>
+
+        <ul>
+          <%for (var i=0;i<keyFoods.length;i++){ %>
+            <li>
+              <%=keyFoods[i]%>
+            </li>
+            <%}%>
+        </ul>
+
+        <form action="/" method="post">
+          <input type="text" name="item">
+          <button name="button" type="submit">Add</button>
+        </form>
+
+</body>
+
+</html>
