@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 app.get('/', (req, res) => {
-  console.log(posts);
+  //console.log(posts);
   res.render('home', { keyHome: homeStartingContent, keyPosts: posts });
 });
 
@@ -39,6 +39,16 @@ app.post('/compose', (req, res) => {
   const post = { Title: req.body.postTitle, Body: req.body.postBody }
   posts.push(post);
   res.redirect("/");
+});
+
+app.get('/posts/:postTitle', (req, res) => {
+
+  let isPost = false;
+  posts.forEach((item) => {
+    //console.log(item.Title);
+    if (item.Title == req.params.postTitle) { isPost = true; }
+  });
+  console.log(isPost);
 });
 
 app.listen(process.env.PORT || 4000, function () {
