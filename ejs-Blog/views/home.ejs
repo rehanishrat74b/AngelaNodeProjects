@@ -1,0 +1,16 @@
+<%- include('partials/header') -%>
+  <div class="container-fluid">
+    <h1>Home</h1>
+    <%=keyHome%>
+
+      <% keyPosts.forEach(post=> {%>
+        <h1>
+          <%=post.Title%>
+        </h1>
+        <p>
+          <%=post.Body%>
+        </p>
+        <%}); %>
+
+  </div>
+  <%- include('partials/footer') -%>

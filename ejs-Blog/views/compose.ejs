@@ -1,0 +1,28 @@
+<%- include('partials/header') -%>
+
+  <div class="form container-fluid  min-vw-100">
+    <form method="post" action="/compose">
+      <h1>Compose </h1>
+      <div class="input-group mb-0">
+        <label class="form-label">Title</label>
+      </div>
+      <div class="input-group mb-3 ">
+        <input type="text" class="form-control input-lg" placeholder="Enter Title" name="postTitle">
+      </div>
+
+      <div class="input-group mb-0">
+        <label class="form-label">Contents</label>
+      </div>
+      <div class="input-group">
+
+        <textarea class="form-control" placeholder="Enter Contents" name="postBody"></textarea>
+      </div>
+
+      <button class="btn btn-primary mt-3" type="submit">Publish</button>
+    </form>
+
+
+  </div>
+
+
+  <%- include('partials/footer') -%>
