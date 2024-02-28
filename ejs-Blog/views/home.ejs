@@ -8,7 +8,8 @@
           <%=post.Title%>
         </h1>
         <p>
-          <%=post.Body%>
+          <% let set=post.Body.substring(0,100) + "..." ; %>
+            <%=set%> <a href="/posts/<%=post.Title%>">Read More</a>
         </p>
         <%}); %>
 
