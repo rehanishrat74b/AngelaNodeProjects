@@ -1,0 +1,35 @@
+<%- include("layouts/header") -%>
+
+  <div class="box" id="heading">
+    <% if(kindOfDay=="Friday" ){ %>
+      <h1 style="color:purple">today is <%=kindOfDay %>
+      </h1>
+      <%} else {%>
+        <h1 style="color:blue">today is <%=kindOfDay %>
+        </h1>
+        <%}%>
+          <h2>
+            <%= keyFormatedDate %>
+          </h2>
+  </div>
+
+  <div class="box">
+    <%keyFoods.forEach((item)=>{%>
+      <div class="item">
+        <input type="checkbox">
+        <p>
+          <%=item.name%>
+        </p>
+      </div>
+      <% })%>
+
+
+
+
+        <form action="/" method="post" class="item">
+          <input type="text" name="item" placeholder="New Item" autocomplete="off">
+          <button name="button" type="submit">+</button>
+        </form>
+
+  </div>
+  <%- include("layouts/footer") -%>
