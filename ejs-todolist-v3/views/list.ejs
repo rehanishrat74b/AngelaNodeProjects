@@ -15,12 +15,14 @@
 
   <div class="box">
     <%keyFoods.forEach((item)=>{%>
-      <div class="item">
-        <input type="checkbox">
-        <p>
-          <%=item.name%>
-        </p>
-      </div>
+      <form action="/deleteItem" method="post">
+        <div class="item">
+          <input type="checkbox" name="checkbox" value="<%=item._id%>" onChange="this.form.submit()">
+          <p>
+            <%=item.name%>
+          </p>
+        </div>
+      </form>
       <% })%>
 
 

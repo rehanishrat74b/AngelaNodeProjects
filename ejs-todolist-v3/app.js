@@ -23,6 +23,7 @@ const itemsSchema = mongoose.Schema({
 });
 const Item = mongoose.model("Item", itemsSchema); //model
 let defaultItems = [];
+let qDbItems = [];
 
 db.on('error', console.error.bind(console, 'Error in connection'));
 db.on('close', function () { console.log("db close") });
@@ -32,6 +33,25 @@ db.once('open', async function () {
   const item2 = new Item({ name: "Hit a + button to off an item" });
   const item3 = new Item({ name: "<-- Hit this to delete an item" });
   defaultItems = [item1, item2, item3];
+
+  /*await Item.find({})
+    .then(mitems => {
+      console.log(mitems);
+      if (mitems.length == 0) {
+        Item.insertMany(defaultItems)
+          .then(saved => {
+            console.log('saved items:', saved);
+            qDbItems = [...saved];
+            //res.render('list', { kindOfDay: mDate, keyFormatedDate: formatedDate, keyFoods: saved });
+          })
+          .catch(err => { console.log(err) });
+      } else {
+        //res.render('list', { kindOfDay: mDate, keyFormatedDate: formatedDate, keyFoods: mitems });
+        qDbItems = [...mitems];
+      }
+
+    })
+    .catch(err => { console.log(err) });*/
 
 });
 
@@ -58,14 +78,34 @@ app.get('/', async function (req, res) {
     })
     .catch(err => { console.log(err) });
 
-
+  //res.render('list', { kindOfDay: mDate, keyFormatedDate: formatedDate, keyFoods: qDbItems });
 });
 
 
 
-app.post('/', (req, res) => {
-  items.push(req.body.item);
-  res.redirect('/')
+app.post('/', async (req, res) => {
+  //items.push(req.body.item);
+  const postedItem = new Item({ name: req.body.item });
+  await postedItem.save()
+    .then(savedItem => {
+      console.log('data saved:' + savedItem);
+      //qDbItems.push(savedItem);
+      res.redirect('/');
+    })
+    .catch(err => { console.log("error:" + err); });
+
+
+});
+
+
+app.post('/deleteItem', async (req, res) => {
+  console.log(req.body.checkbox);
+  await Item.findByIdAndDelete(req.body.checkbox)
+    .then(del => {
+      console.log('del item:' + del);
+      res.redirect('/');
+    })
+    .catch(err => { console.log(err); })
 });
 
 app.listen(process.env.PORT || 3000, function () {
