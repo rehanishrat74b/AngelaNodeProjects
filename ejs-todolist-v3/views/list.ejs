@@ -1,6 +1,9 @@
 <%- include("layouts/header") -%>
 
   <div class="box" id="heading">
+    <h1>
+      <%=keyListName%>
+    </h1>
     <% if(kindOfDay=="Friday" ){ %>
       <h1 style="color:purple">today is <%=kindOfDay %>
       </h1>
@@ -30,7 +33,7 @@
 
         <form action="/" method="post" class="item">
           <input type="text" name="item" placeholder="New Item" autocomplete="off">
-          <button name="button" type="submit">+</button>
+          <button name="list" type="submit" value="<%=keyListName%>">+</button>
         </form>
 
   </div>
