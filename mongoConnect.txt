@@ -1,0 +1,6 @@
+
+username = rehanishrat74
+password = CiGrTSUnp1pdfyut
+
+F: \Program Files(x86) \mongosh
+mongosh "mongodb+srv://clusterrehan.ftufvvt.mongodb.net/" --apiVersion 1 --username rehanishrat74

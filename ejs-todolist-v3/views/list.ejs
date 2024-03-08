@@ -17,6 +17,8 @@
   </div>
 
   <div class="box">
+
+
     <%keyFoods.forEach((item)=>{%>
       <form action="/deleteItem" method="post">
         <div class="item">
@@ -25,6 +27,7 @@
             <%=item.name%>
           </p>
         </div>
+        <input type="hidden" name="listName" value="<%=keyListName%>">
       </form>
       <% })%>
 

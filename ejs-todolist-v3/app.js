@@ -7,8 +7,7 @@ const user = "rehanishrat74";
 const pwd = "CiGrTSUnp1pdfyut";
 const uri = "mongodb+srv://" + user + ":" + pwd + "@clusterrehan.ftufvvt.mongodb.net/" + dbName + "?retryWrites=true&w=majority&appName=ClusterRehan";
 
-var items = [];
-
+const _ = require('lodash');
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -30,15 +29,15 @@ const listSchema = mongoose.Schema({
 });
 const List = mongoose.model("List", listSchema);
 
+const item1 = new Item({ name: "Welcome to your todo list" });
+const item2 = new Item({ name: "Hit a + button to off an item" });
+const item3 = new Item({ name: "<-- Hit this to delete an item" });
+defaultItems = [item1, item2, item3];
 
 db.on('error', console.error.bind(console, 'Error in connection'));
 db.on('close', function () { console.log("db close") });
 db.once('open', async function () {
 
-  const item1 = new Item({ name: "Welcome to your todo list" });
-  const item2 = new Item({ name: "Hit a + button to off an item" });
-  const item3 = new Item({ name: "<-- Hit this to delete an item" });
-  defaultItems = [item1, item2, item3];
 
 });
 
@@ -47,31 +46,38 @@ let formatedDate = moduleDate.getFormatedDate();
 
 app.get('/', async function (req, res) {
 
-
-
-  await Item.find({})
-    .then(mitems => {
-      if (mitems.length == 0) {
-        Item.insertMany(defaultItems)
+  //res.redirect("/Home");
+  await List.find({ name: "Home" })
+    .then(foundList => {
+      if (!foundList || foundList.length == 0) {
+        const nList = new List({
+          name: "Home",
+          items: [...defaultItems] //avoiding arrays within array by ...
+          // the other way is items: [item1,item2,item3]
+        });
+        nList.save()
           .then(saved => {
-            console.log('saved items:', saved);
-            res.render('list', { keyListName: "Home", kindOfDay: mDate, keyFormatedDate: formatedDate, keyFoods: saved });
+            console.log("new List saved:" + saved);
+            console.log("home not found and created");
+            res.render('list', { keyListName: "Home", kindOfDay: mDate, keyFormatedDate: formatedDate, keyFoods: saved.items });
           })
-          .catch(err => { console.log(err) });
+          .catch(errnList => { console.log("err in new list: " + errnList) });
+        ;
       } else {
-        res.render('list', { keyListName: "Home", kindOfDay: mDate, keyFormatedDate: formatedDate, keyFoods: mitems });
+        console.log("home list found");
+        console.log(foundList);
+        res.render('list', { keyListName: "Home", kindOfDay: mDate, keyFormatedDate: formatedDate, keyFoods: foundList.items });
       }
 
     })
-    .catch(err => { console.log(err) });
-
+    .catch(err => { console.log(err); });
 
 });
 
 
 app.get("/:customListName", async (req, res) => {
   console.log(req.params.customListName);
-  const customListName = req.params.customListName;
+  const customListName = _.capitalize(req.params.customListName);
 
   await List.findOne({ name: customListName })
     .then(foundList => {
@@ -131,13 +137,21 @@ app.post('/', async (req, res) => {
 
 app.post('/deleteItem', async (req, res) => {
   console.log(req.body.checkbox);
-  await Item.findByIdAndDelete(req.body.checkbox)
-    .then(del => {
-      console.log('del item:' + del);
-      res.redirect('/');
+  const itemId = req.body.checkbox;
+  const listName = req.body.listName;
+
+  await List.updateOne(
+    { name: listName }, // Assuming listId is the ID of the list you want to update
+    { $pull: { items: { _id: itemId } } }, // Assuming itemId is the ID of the item you want to remove
+  )
+    .then(result => {
+      console.log(result);
+      res.redirect("/" + listName);
     })
-    .catch(err => { console.log(err); })
+    .catch(err => { console.log(err); });
+
 });
+
 
 app.listen(process.env.PORT || 3000, function () {
   console.log("server is up on port 3000");
