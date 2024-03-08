@@ -47,7 +47,7 @@ let formatedDate = moduleDate.getFormatedDate();
 app.get('/', async function (req, res) {
 
   //res.redirect("/Home");
-  await List.find({ name: "Home" })
+  await List.findOne({ name: "Home" })
     .then(foundList => {
       if (!foundList || foundList.length == 0) {
         const nList = new List({
