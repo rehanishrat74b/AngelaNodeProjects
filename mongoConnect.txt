@@ -4,3 +4,27 @@ password = CiGrTSUnp1pdfyut
 
 F: \Program Files(x86) \mongosh
 mongosh "mongodb+srv://clusterrehan.ftufvvt.mongodb.net/" --apiVersion 1 --username rehanishrat74
+
+
+Web URL
+1. https://cloud.mongodb.com/v2/65ded693cee4963747c9ea79#/overview
+   login with google credentials to access databases
+
+2. install atlas cli to authorise. one time operation
+    https://www.mongodb.com/docs/atlas/cli/stable/install-atlas-cli/#std-label-install-atlas-cli
+
+    https://www.mongodb.com/docs/atlas/cli/stable/connect-atlas-cli/#std-label-connect-atlas-cli
+    F:\Program Files (x86)\MongoDB Atlas CLI\
+    atlas auth login
+      The command opens a browser window and returns a one-time activation code. This code expires after 10 minutes.
+      Paste your activation code into the browser and click Confirm Authorization.
+      Accept the default profile configuration by pressing Enter 
+3. run mongosh cli to query databases
+4. or install studio3T to connect with gui
+    https://robomongo.org/      
+
+5. connection string
+    const dbName = "todoListv3";
+    const user = "rehanishrat74";
+    const pwd = "CiGrTSUnp1pdfyut";
+    const uri = "mongodb+srv://" + user + ":" + pwd + "@clusterrehan.ftufvvt.mongodb.net/" + dbName + "?retryWrites=true&w=majority&appName=ClusterRehan";
